@@ -1,0 +1,64 @@
+<div class="header" class="container">
+      <img src="Logo_Hust.png">
+      <h1>Tra cứu học phần môn học trường Đại học Bách Khoa Hà Nội</h1>
+</div>
+<div class="container">
+   <div class="input_container">
+      <h3>Nhập mã học phần tại đây</h3>
+      <form method="POST" action="/" class="form_input">
+         <input  type="text" name="task_id" id="task" required>
+         <button type="submit" id="submit">Tra cứu</button>
+      </form>
+   </div>
+   <div id="info_container">
+         {{#if showDetail}}
+            {{#if isExist}}
+               <div class="info_detail">
+                  <a>Mã học phần: </a><br>{{moduleCode}}<br><br>
+                  <a>Tên học phần: </a><br>{{moduleName}}<br><br>
+                  {{#if needPreCondition}}
+                     <a>Học phần điều kiện: </a><br>{{conditonModule}}<br><br>
+                     {{#if isRequire}}
+                        <br><a><b>Chú ý, để học được học phần này, bạn phải học:</b></a><br>
+                        {{#if requirement.preCourseLst}}
+                           <a>Học phần điều kiện: </a> {{requirement.preCourseLst}} <br>
+                        {{/if}} 
+                        {{#if requirement.prerequite}}  
+                           <a>Học phần tiên quyết: </a> {{requirement.prerequite}}<br>
+                        {{/if}} 
+                        {{#if requirement.corequisite}}
+                           <a>Học phần song song: </a>  {{requirement.corequisite}}<br>
+                        {{/if}} 
+                        <b>----------------------</b><br>
+                     {{else}}
+                        <br>
+                     {{/if}}
+                     <a><b>Các cụm học phần có thể học: </b></a><br>
+                     <div>
+                     {{#each rcmLst}}
+                        <br>
+                        <div style="border:1px solid black">
+                           <a>Học phần: </a> {{courses}} <br>
+                           {{#if prerequite}}
+                              <a>Học phần tiên quyết: </a>  {{prerequite}} <br>
+                           {{/if}}
+                           {{#if corequisite}}
+                              <a>Học phần song song: </a>   {{corequisite}} <br>
+                           {{/if}}
+                        </div>
+                     {{/each}}
+                     </div>
+                  {{else}}  
+                        <a> Học phần này không có học phần điều kiện nào</a>
+                  {{/if}}
+               </div>
+               <div class="info_image">
+                     <img id="myimage" src='{{srcText}}' width="850" height="300" alt="Sơ đồ môn học điều kiện, nếu không thấy thì link đến ảnh bị lỗi rồi">
+                     <div id="myresult" class="img-zoom-result"></div>
+               </div>
+            {{else}}
+               <a>Mã học phần này không tồn tại</a>
+            {{/if}}
+         {{/if}}
+   </div>
+</div>

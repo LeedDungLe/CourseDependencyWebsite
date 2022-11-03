@@ -1,0 +1,82 @@
+body {
+    min-width: 60%;
+    width: 100%;
+    margin: auto;
+}
+
+.container {
+    background-color: lightyellow;
+    padding: 2%
+}
+
+.header {
+    height: 80px;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+}
+
+h1 {
+    color: navy;
+}
+
+#task {
+    padding: 1% 2%;
+    border-color: navy;
+    margin: 10px;
+}
+
+#submit {
+    padding: 1% 2%;
+    border-color: navy;
+    background-color: navy;
+    color: white;
+    margin: 10px;
+    width: 100px;
+}
+
+.input_container {
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: row;
+}
+
+.info_detail {
+    width: 30%;
+    word-wrap: break-word;
+}
+
+.form_input {
+    margin-left: 30px;
+    display: flex;
+    flex-direction: row;
+}
+
+.info_image {
+    width: 70%;
+    position: relative;
+}
+
+#info_container {
+    display: flex;
+    flex-direction: row;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.img-zoom-lens {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    /*set the size of the lens:*/
+    width: 40px;
+    height: 40px;
+}
+
+.img-zoom-result {
+    border: 1px solid #d4d4d4;
+    /*set the size of the result div:*/
+    width: 300px;
+    height: 300px;
+}
