@@ -16,6 +16,19 @@ body {
     display: flex;
 }
 
+.footer {
+    height: 50px;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+}
+
+#login {
+    float: right;
+    margin-left: 120px;
+    margin-top: 30px;
+}
+
 h1 {
     color: navy;
 }

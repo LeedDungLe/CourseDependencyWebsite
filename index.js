@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const con = require('./models/taskModel')
 
+
 app.use(express.static('public'));
 app.engine('hbs', hbs.engine({
     layoutsDir: __dirname + '/views/layouts',
@@ -20,7 +21,9 @@ app.get('/', (req, res) => {
     res.render('index', {});
 });
 
-
+app.get('/login', (req, res) => {
+    res.render('login', {});
+});
 
 app.post('/', (req, res) => {
     let query = "SELECT * FROM coursedata WHERE maHocPhan = ?";
@@ -35,7 +38,8 @@ app.post('/', (req, res) => {
                 showDetail: true
             });
         } else {
-            urlImg = "http://sinno.soict.ai:37080/course?id=" + req.body.task_id
+            // urlImg = "http://sinno.soict.ai:37080/course?id=" + req.body.task_id
+            urlImg = "http://localhost:80/course?id=" + req.body.task_id
                 // Nếu không có yêu cầu học phần điều kiện
             if (result[0].hocPhanDieuKien == '') {
                 res.render('index', {
