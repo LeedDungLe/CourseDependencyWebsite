@@ -1,26 +1,50 @@
 body {
     min-width: 60%;
     width: 100%;
-    margin: auto;
+    min-height: 100vh;
+    margin: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    background-color: rgb(221, 225, 254);
+    height: 80px;
+    min-height: 80px;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
 }
 
 .container {
     background-color: lightyellow;
-    padding: 2%
-}
-
-.header {
-    height: 80px;
-    margin-top: auto;
-    margin-bottom: auto;
-    display: flex;
+    padding: 2%;
+    flex: 1;
 }
 
 .footer {
     height: 50px;
-    margin-top: auto;
+    min-height: 50px;
     margin-bottom: auto;
     display: flex;
+    background-color: #a9a9a9;
+}
+
+.recommend-content {
+    overflow-y: scroll;
+    border: solid 1px black;
+    height: 200px;
+    background-color: #fcead4;
+    margin-bottom: 15px;
+}
+
+.my-recommend {
+    background-color: #daced8;
+    border: solid 1px black;
+    height: 50px;
+    margin-bottom: 15px;
+    width: -webkit-fill-available;
 }
 
 #login {
@@ -72,7 +96,9 @@ h1 {
 
 #info_container {
     display: flex;
+    margin-right: 7px;
     flex-direction: row;
+    min-height: 100%
 }
 
 * {
@@ -92,4 +118,16 @@ h1 {
     /*set the size of the result div:*/
     width: 300px;
     height: 300px;
+}
+
+.button {
+    font: bold 11px Arial;
+    text-decoration: none;
+    background-color: #EEEEEE;
+    color: #333333;
+    padding: 2px 6px 2px 6px;
+    border-top: 1px solid #CCCCCC;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
 }

@@ -21,9 +21,6 @@ app.get('/', (req, res) => {
     res.render('index', {});
 });
 
-app.get('/login', (req, res) => {
-    res.render('login', {});
-});
 
 app.post('/', (req, res) => {
     let query = "SELECT * FROM coursedata WHERE maHocPhan = ?";
