@@ -64,9 +64,37 @@
 
    </head>
    <body>
-      {{{body}}}
-      <script>
+         {{{body}}}
+      <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js">
          imageZoom("myimage", "myresult");
+         function openLoginForm() {
+            document.getElementById("loginForm").style.display = "block";
+            document.getElementById("header-container").style.filter = "brightness(60%)";
+            document.getElementById("body-container").style.filter = "brightness(60%)";
+         }
+
+         function closeLoginForm() {
+            document.getElementById("loginForm").style.display = "none";
+            document.getElementById("header-container").style.filter = "brightness(100%)";
+            document.getElementById("body-container").style.filter = "brightness(100%)";
+         }
+
+         function sendComment( ){
+            const needle = require('needle');
+
+            const data = {
+               name: 'John Doe',
+               job: 'Content Writer'
+            };
+
+            needle('post', 'locahost:3000', data, {json: true})
+               .then((res) => {
+                  console.log(`Status: ${res.statusCode}`);
+                  console.log('Body: ', res.body);
+               }).catch((err) => {
+                  console.error(err);
+               });
+         }
       </script>
    </body>
 </html>

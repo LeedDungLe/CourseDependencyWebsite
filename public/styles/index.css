@@ -42,8 +42,6 @@ body {
 .my-recommend {
     background-color: #daced8;
     border: solid 1px black;
-    height: 50px;
-    margin-bottom: 15px;
     width: -webkit-fill-available;
 }
 
@@ -72,6 +70,15 @@ h1 {
     width: 100px;
 }
 
+.my_recommend_btn {
+    padding: 1% 2%;
+    border-color: navy;
+    background-color: navy;
+    color: white;
+    margin-left: 10px;
+    width: 100px;
+}
+
 .input_container {
     margin-bottom: 50px;
     display: flex;
@@ -92,6 +99,12 @@ h1 {
 .info_image {
     width: 70%;
     position: relative;
+}
+
+.recommend_input {
+    display: flex;
+    flex-direction: row;
+    height: 40px;
 }
 
 #info_container {
@@ -130,4 +143,54 @@ h1 {
     border-right: 1px solid #333333;
     border-bottom: 1px solid #333333;
     border-left: 1px solid #CCCCCC;
+}
+
+.login_form_popup {
+    display: none;
+    position: fixed;
+    background-color: white;
+    top: 10%;
+    left: 40%;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+}
+
+.form-container {
+    max-width: 300px;
+    padding: 10px;
+}
+
+.form-container .btn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+.form-container .cancel {
+    background-color: red;
+}
+
+.form-container .btn:hover,
+.open-button:hover {
+    opacity: 1;
+}
+
+.form-container input[type=text]:focus,
+.form-container input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+.form-container input[type=text],
+.form-container input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
 }

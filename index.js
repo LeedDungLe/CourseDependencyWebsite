@@ -99,6 +99,9 @@ app.post('/', (req, res) => {
 })
 
 
+app.get('/test', (req, res) => {
+    console.log(req.body)
+});
 
 // port where app is served
 app.listen(3000, () => {
