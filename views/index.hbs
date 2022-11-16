@@ -1,8 +1,8 @@
 <div class="header" id="header-container">
-      <img src="Logo_Hust.png" style="margin-right:10px">
+      <img src="Logo_Hust.png" style="    margin-left: 20px;    margin-right: 30px;">
       <h1>Tra cứu học phần môn học trường Đại học Bách Khoa Hà Nội</h1>
       <div id="login">
-         <button  id="loginBtn"  onclick="openLoginForm()">Đăng nhập</button>
+         <button  id="loginBtn" >Đăng nhập</button>
       </div>
 </div>
 
@@ -17,7 +17,7 @@
             <input type="password" placeholder="Enter Password" name="psw" required>
 
             <button type="submit" class="btn">Login</button>
-            <button type="button" class="btn cancel" onclick="closeLoginForm()">Close</button>
+            <button type="button" class="btn cancel" id="closeLoginFormBtn">Close</button>
          </form>
       </div>
 
@@ -84,7 +84,7 @@
                   <div> Ý kiến của bạn </div>
                   <div class="recommend_input">
                      <input  type="text" maxlength="150" class ="my-recommend" required>
-                     <button class ="my_recommend_btn" onclick="sendComment()">Gửi</button>
+                     <button class ="my_recommend_btn" id="sendCommentBtn">Gửi</button>
                   </div>
                </div>
             {{else}}
@@ -97,3 +97,4 @@
 <div class="footer" id="footer-container">
 
 </div>
+

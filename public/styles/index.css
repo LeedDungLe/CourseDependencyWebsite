@@ -9,7 +9,7 @@ body {
 }
 
 .header {
-    background-color: rgb(221, 225, 254);
+    background-color: rgb(227, 240, 201);
     height: 80px;
     min-height: 80px;
     margin-top: auto;
@@ -88,6 +88,8 @@ h1 {
 .info_detail {
     width: 30%;
     word-wrap: break-word;
+    border: 1px solid black;
+    padding: 5px;
 }
 
 .form_input {
@@ -98,6 +100,7 @@ h1 {
 
 .info_image {
     width: 70%;
+    margin-left: 20px;
     position: relative;
 }
 

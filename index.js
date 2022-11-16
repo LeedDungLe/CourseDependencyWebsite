@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 const app = express();
 const con = require('./models/taskModel')
 
-
 app.use(express.static('public'));
 app.engine('hbs', hbs.engine({
     layoutsDir: __dirname + '/views/layouts',
@@ -35,8 +34,8 @@ app.post('/', (req, res) => {
                 showDetail: true
             });
         } else {
-            // urlImg = "http://sinno.soict.ai:37080/course?id=" + req.body.task_id
-            urlImg = "http://localhost:80/course?id=" + req.body.task_id
+            urlImg = "http://sinno.soict.ai:37080/course?id=" + req.body.task_id
+                // urlImg = "http://localhost:80/course?id=" + req.body.task_id
                 // Nếu không có yêu cầu học phần điều kiện
             if (result[0].hocPhanDieuKien == '') {
                 res.render('index', {
@@ -99,8 +98,9 @@ app.post('/', (req, res) => {
 })
 
 
-app.get('/test', (req, res) => {
+app.post('/test', (req, res) => {
     console.log(req.body)
+    res.status(200).send("success");
 });
 
 // port where app is served
