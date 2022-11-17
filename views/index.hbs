@@ -41,15 +41,27 @@
                         {{#if isRequire}}
                            <br><a style="color: red;"><b>Chú ý, để học được học phần này, bạn phải học:</b></a><br>
                            {{#if requirement.preCourseLst}}
-                              <a>Học phần điều kiện: </a> {{requirement.preCourseLst}} <br>
+                              <a>Học phần điều kiện: </a> 
+                              {{#each requirement.preCourseLst}}
+                                   <a href="/{{this}}">{{this}}</a> 
+                              {{/each}}
+                              <br>
                            {{/if}} 
                            {{#if requirement.prerequite}}  
-                              <a>Học phần tiên quyết: </a> {{requirement.prerequite}}<br>
+                              <a>Học phần tiên quyết: </a> 
+                              {{#each requirement.prerequite}}
+                                   <a href="/{{this}}">{{this}}</a> 
+                              {{/each}}
+                              <br>
                            {{/if}} 
                            {{#if requirement.corequisite}}
-                              <a>Học phần song song: </a>  {{requirement.corequisite}}<br>
+                              <a>Học phần song song: </a>  
+                              {{#each requirement.corequisite}}
+                                   <a href="/{{this}}">{{this}}</a> 
+                              {{/each}}
+                              <br>
                            {{/if}} 
-                           <b>----------------------</b><br>
+                           <br><b>----------------------</b><br>
                         {{else}}
                            <br>
                         {{/if}}
@@ -58,12 +70,24 @@
                         {{#each rcmLst}}
                            <br>
                            <div style="border:1px solid black">
-                              <a><b>Học phần {{inc @index}}: </b></a> {{courses}} <br>
+                              <a><b>Học phần {{inc @index}}: </b></a> 
+                              {{#each courses}}
+                                   <a href="/{{this}}">{{this}}</a> 
+                              {{/each}}
+                              <br>
                               {{#if prerequite}}
-                                 <a>Học phần tiên quyết: </a>  {{prerequite}} <br>
+                                 <a>Học phần tiên quyết: </a> 
+                                 {{#each prerequite}}
+                                   <a href="/{{this}}">{{this}}</a> 
+                                 {{/each}}
+                                 <br>
                               {{/if}}
                               {{#if corequisite}}
-                                 <a>Học phần song song: </a>   {{corequisite}} <br>
+                                 <a>Học phần song song: </a>   {{corequisite}} 
+                                 {{#each corequisite}}
+                                   <a href="/{{this}}">{{this}}</a> 
+                                 {{/each}}
+                                 <br>
                               {{/if}}
                            </div>
                         {{/each}}

@@ -67,6 +67,7 @@ body {
     color: white;
     margin: 10px;
     width: 100px;
+    cursor: pointer;
 }
 
 .my_recommend_btn {
@@ -77,6 +78,7 @@ body {
     margin-left: 10px;
     width: 100px;
     box-shadow: 5px 5px #b6b2b2;
+    cursor: pointer;
 }
 
 .input_container {
@@ -203,4 +205,18 @@ body {
 
 .source_info {
     margin: auto;
+}
+
+a:visited {
+    color: blue;
+}
+
+#loginBtn {
+    cursor: pointer;
+}
+
+.hustLogo {
+    background-image: url("../Logo_Hust.png");
+    margin: 6px 0px 6px 20px;
+    cursor: pointer;
 }

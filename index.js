@@ -102,7 +102,7 @@ app.post('/', (req, res) => {
     })
 })
 
-app.post('/:task_id', (req, res) => {
+app.get('/:task_id', (req, res) => {
     let query = "SELECT * FROM coursedata WHERE maHocPhan = ?";
     data = [
         req.params.task_id
@@ -115,8 +115,8 @@ app.post('/:task_id', (req, res) => {
                 showDetail: true
             });
         } else {
-            urlImg = "http://sinno.soict.ai:37080/course?id=" + req.body.task_id
-                // urlImg = "http://localhost:80/course?id=" + req.body.task_id
+            urlImg = "http://sinno.soict.ai:37080/course?id=" + req.params.task_id
+                // urlImg = "http://localhost:80/course?id=" + req.params.task_id
                 // Nếu không có yêu cầu học phần điều kiện
             if (result[0].hocPhanDieuKien == '') {
                 res.render('index', {
