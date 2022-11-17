@@ -25,16 +25,16 @@ def getprerequite (courses) :
 # Hàm xử lý lấy học phần ưu tiên
 def getPriority (coursesLst):
     coursesLst = [courses.replace("(","").replace(")","").replace(" ","").split("&") for courses in coursesLst]    
-    result = coursesLst[0]
-    for item in result:
+    result = coursesLst[0].copy()
+    for item in coursesLst[0]:
         is_continue = True 
         for course in coursesLst: 
             if item not in course:
                 result.remove(item)
                 is_continue = False
                 break
-        if is_continue == False :
-            break    
+            if is_continue == False :
+                break    
     return result
 
 

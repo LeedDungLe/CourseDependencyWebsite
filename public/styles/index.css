@@ -9,9 +9,10 @@ body {
 }
 
 .header {
-    background-color: rgb(227, 240, 201);
-    height: 80px;
-    min-height: 80px;
+    background-color: rgb(185 228 240);
+    height: 100px;
+    height: 100px;
+    min-height: 100px;
     margin-top: auto;
     margin-bottom: auto;
     display: flex;
@@ -33,26 +34,24 @@ body {
 
 .recommend-content {
     overflow-y: scroll;
-    border: solid 1px black;
+    border: solid 2px #547b7b;
     height: 200px;
     background-color: #fcead4;
     margin-bottom: 15px;
+    margin-top: 10px;
+    box-shadow: 5px 5px #b6b2b2;
 }
 
 .my-recommend {
     background-color: #daced8;
-    border: solid 1px black;
+    border: solid 2px #547b7b;
+    box-shadow: 5px 5px #b6b2b2;
     width: -webkit-fill-available;
 }
 
 #login {
-    float: right;
-    margin-left: 120px;
+    margin-left: 200px;
     margin-top: 30px;
-}
-
-h1 {
-    color: navy;
 }
 
 #task {
@@ -77,6 +76,7 @@ h1 {
     color: white;
     margin-left: 10px;
     width: 100px;
+    box-shadow: 5px 5px #b6b2b2;
 }
 
 .input_container {
@@ -90,6 +90,8 @@ h1 {
     word-wrap: break-word;
     border: 1px solid black;
     padding: 5px;
+    background-color: mintcream;
+    box-shadow: 5px 5px #b6b2b2;
 }
 
 .form_input {
@@ -108,6 +110,7 @@ h1 {
     display: flex;
     flex-direction: row;
     height: 40px;
+    margin-top: 10px;
 }
 
 #info_container {
@@ -151,10 +154,10 @@ h1 {
 .login_form_popup {
     display: none;
     position: fixed;
-    background-color: white;
+    background-color: rgb(227, 240, 201);
     top: 10%;
     left: 40%;
-    border: 3px solid #f1f1f1;
+    border: 3px solid #71e84d;
     z-index: 9;
 }
 
@@ -196,4 +199,8 @@ h1 {
     margin: 5px 0 22px 0;
     border: none;
     background: #f1f1f1;
+}
+
+.source_info {
+    margin: auto;
 }

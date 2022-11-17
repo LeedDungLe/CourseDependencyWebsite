@@ -1,5 +1,5 @@
 <div class="header" id="header-container">
-      <img src="Logo_Hust.png" style="    margin-left: 20px;    margin-right: 30px;">
+      <img src="Logo_Hust.png" style="margin: 6px 30px 6px 20px;">
       <h1>Tra cứu học phần môn học trường Đại học Bách Khoa Hà Nội</h1>
       <div id="login">
          <button  id="loginBtn" >Đăng nhập</button>
@@ -25,7 +25,7 @@
    <div class="input_container">
       <h3>Nhập mã học phần tại đây</h3>
       <form method="POST" action="/" class="form_input">
-         <input  type="text" name="task_id" id="task" required>
+         <input  type="text" name="task_id" id="task" placeholder="tìm kiếm..." required>
          <button type="submit" id="submit">Tra cứu</button>
       </form>
    </div>
@@ -39,7 +39,7 @@
                      {{#if needPreCondition}}
                         <a>Học phần điều kiện: </a><br>{{conditonModule}}<br><br>
                         {{#if isRequire}}
-                           <br><a><b>Chú ý, để học được học phần này, bạn phải học:</b></a><br>
+                           <br><a style="color: red;"><b>Chú ý, để học được học phần này, bạn phải học:</b></a><br>
                            {{#if requirement.preCourseLst}}
                               <a>Học phần điều kiện: </a> {{requirement.preCourseLst}} <br>
                            {{/if}} 
@@ -58,7 +58,7 @@
                         {{#each rcmLst}}
                            <br>
                            <div style="border:1px solid black">
-                              <a>Học phần: </a> {{courses}} <br>
+                              <a><b>Học phần {{inc @index}}: </b></a> {{courses}} <br>
                               {{#if prerequite}}
                                  <a>Học phần tiên quyết: </a>  {{prerequite}} <br>
                               {{/if}}
@@ -95,6 +95,8 @@
 </div>
 
 <div class="footer" id="footer-container">
-
+   <div class="source_info">
+      <a>* Dữ liệu được lấy từ trang  </a> <b></b><a href="http://sis.hust.edu.vn/ModuleProgram/CourseLists.aspx" target="_blank"> SIS</a></b>
+   </div>   
 </div>
 
