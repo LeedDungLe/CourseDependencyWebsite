@@ -42,12 +42,19 @@ app.post('/', (req, res) => {
             urlImg = "http://sinno.soict.ai:37080/course?id=" + req.body.task_id
                 // urlImg = "http://localhost:80/course?id=" + req.body.task_id
                 // Nếu không có yêu cầu học phần điều kiện
-            if (result[0].hocPhanDieuKien == '') {
+            if (result[0].hocPhanDieuKien.trim() == '') {
                 res.render('index', {
                     isExist: true,
                     showDetail: true,
                     moduleCode: result[0].maHocPhan,
                     moduleName: result[0].tenHocPhan,
+                    Duration: result[0].thoiLuong,
+                    NumberOfCredits: result[0].soTinChi,
+                    TCTuitionFees: result[0].tinChiHocPhi,
+                    Weighting: result[0].trongSo,
+                    FactorManagementInstitute: result[0].vienQuanLy,
+                    goal: result[0].mucTieu,
+                    content: result[0].noiDung,
                     conditonModule: result[0].hocPhanDieuKien,
                     srcText: urlImg,
                     needPreCondition: false
@@ -65,17 +72,23 @@ app.post('/', (req, res) => {
                     data = eval(`(${data})`);
                     console.log(data)
                         // Nếu không có học phần bắt buộc
-                    if (data.require.preCourseLst.length == 0 &&
-                        data.require.prerequite.length == 0 &&
-                        data.require.corequisite.length == 0) {
+                    if (data.preCourseLst.length == 0 &&
+                        data.prerequite.length == 0 &&
+                        data.corequisite.length == 0) {
                         res.render('index', {
                             isExist: true,
                             showDetail: true,
                             moduleCode: result[0].maHocPhan,
                             moduleName: result[0].tenHocPhan,
+                            Duration: result[0].thoiLuong,
+                            NumberOfCredits: result[0].soTinChi,
+                            TCTuitionFees: result[0].tinChiHocPhi,
+                            Weighting: result[0].trongSo,
+                            FactorManagementInstitute: result[0].vienQuanLy,
+                            goal: result[0].mucTieu,
+                            content: result[0].noiDung,
                             conditonModule: result[0].hocPhanDieuKien,
                             srcText: urlImg,
-                            rcmLst: data.rcmLst,
                             isRequire: false,
                             needPreCondition: true
                         });
@@ -85,11 +98,17 @@ app.post('/', (req, res) => {
                             showDetail: true,
                             moduleCode: result[0].maHocPhan,
                             moduleName: result[0].tenHocPhan,
+                            Duration: result[0].thoiLuong,
+                            NumberOfCredits: result[0].soTinChi,
+                            TCTuitionFees: result[0].tinChiHocPhi,
+                            Weighting: result[0].trongSo,
+                            FactorManagementInstitute: result[0].vienQuanLy,
+                            goal: result[0].mucTieu,
+                            content: result[0].noiDung,
                             conditonModule: result[0].hocPhanDieuKien,
                             srcText: urlImg,
-                            rcmLst: data.rcmLst,
                             isRequire: true,
-                            requirement: data.require,
+                            requirement: data,
                             needPreCondition: true
                         });
                     }
@@ -118,12 +137,19 @@ app.get('/:task_id', (req, res) => {
             urlImg = "http://sinno.soict.ai:37080/course?id=" + req.params.task_id
                 // urlImg = "http://localhost:80/course?id=" + req.params.task_id
                 // Nếu không có yêu cầu học phần điều kiện
-            if (result[0].hocPhanDieuKien == '') {
+            if (result[0].hocPhanDieuKien.trim() == '') {
                 res.render('index', {
                     isExist: true,
                     showDetail: true,
                     moduleCode: result[0].maHocPhan,
                     moduleName: result[0].tenHocPhan,
+                    Duration: result[0].thoiLuong,
+                    NumberOfCredits: result[0].soTinChi,
+                    TCTuitionFees: result[0].tinChiHocPhi,
+                    Weighting: result[0].trongSo,
+                    FactorManagementInstitute: result[0].vienQuanLy,
+                    goal: result[0].mucTieu,
+                    content: result[0].noiDung,
                     conditonModule: result[0].hocPhanDieuKien,
                     srcText: urlImg,
                     needPreCondition: false
@@ -141,17 +167,23 @@ app.get('/:task_id', (req, res) => {
                     data = eval(`(${data})`);
                     console.log(data)
                         // Nếu không có học phần bắt buộc
-                    if (data.require.preCourseLst.length == 0 &&
-                        data.require.prerequite.length == 0 &&
-                        data.require.corequisite.length == 0) {
+                    if (data.preCourseLst.length == 0 &&
+                        data.prerequite.length == 0 &&
+                        data.corequisite.length == 0) {
                         res.render('index', {
                             isExist: true,
                             showDetail: true,
                             moduleCode: result[0].maHocPhan,
                             moduleName: result[0].tenHocPhan,
+                            Duration: result[0].thoiLuong,
+                            NumberOfCredits: result[0].soTinChi,
+                            TCTuitionFees: result[0].tinChiHocPhi,
+                            Weighting: result[0].trongSo,
+                            FactorManagementInstitute: result[0].vienQuanLy,
+                            goal: result[0].mucTieu,
+                            content: result[0].noiDung,
                             conditonModule: result[0].hocPhanDieuKien,
                             srcText: urlImg,
-                            rcmLst: data.rcmLst,
                             isRequire: false,
                             needPreCondition: true
                         });
@@ -163,9 +195,8 @@ app.get('/:task_id', (req, res) => {
                             moduleName: result[0].tenHocPhan,
                             conditonModule: result[0].hocPhanDieuKien,
                             srcText: urlImg,
-                            rcmLst: data.rcmLst,
                             isRequire: true,
-                            requirement: data.require,
+                            requirement: data,
                             needPreCondition: true
                         });
                     }

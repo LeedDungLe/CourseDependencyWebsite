@@ -76,7 +76,7 @@ $(function() {
     }
 
     function sendComment() {
-        $.post("http://localhost:3000/test", {
+        $.post("http://localhost:70/test", {
                 name: "Donald Duck",
                 city: "Duckburg"
             },

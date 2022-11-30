@@ -34,8 +34,15 @@
             {{#if isExist}}
                <div id="info_container">
                   <div class="info_detail">
-                     <a>Mã học phần: </a><br>{{moduleCode}}<br><br>
+                     <a>Mã học phần: </a>{{moduleCode}}<br><br>
                      <a>Tên học phần: </a><br>{{moduleName}}<br><br>
+                     <a>Thời lượng: </a>{{Duration}}<br><br>
+                     <a>Số tín chỉ: </a>{{NumberOfCredits}}<br><br>
+                     <a>Tín chỉ học phí: </a>{{TCTuitionFees}}<br><br>
+                     <a>Trọng số: </a>{{Weighting}}<br><br>
+                     <a>Viện quản lý: </a><br>{{FactorManagementInstitute}}<br><br>
+                     <a>Mục tiêu: </a><br>{{goal}}<br><br>
+                     <a>Nội dung: </a><br>{{content}}<br><br>
                      {{#if needPreCondition}}
                         <a>Học phần điều kiện: </a><br>{{conditonModule}}<br><br>
                         {{#if isRequire}}
@@ -65,40 +72,19 @@
                         {{else}}
                            <br>
                         {{/if}}
-                        <a><b>Các cụm học phần có thể học: </b></a><br>
-                        <div>
-                        {{#each rcmLst}}
-                           <br>
-                           <div style="border:1px solid black">
-                              <a><b>Học phần {{inc @index}}: </b></a> 
-                              {{#each courses}}
-                                   <a href="/{{this}}">{{this}}</a> 
-                              {{/each}}
-                              <br>
-                              {{#if prerequite}}
-                                 <a>Học phần tiên quyết: </a> 
-                                 {{#each prerequite}}
-                                   <a href="/{{this}}">{{this}}</a> 
-                                 {{/each}}
-                                 <br>
-                              {{/if}}
-                              {{#if corequisite}}
-                                 <a>Học phần song song: </a>
-                                 {{#each corequisite}}
-                                   <a href="/{{this}}">{{this}}</a> 
-                                 {{/each}}
-                                 <br>
-                              {{/if}}
-                           </div>
-                        {{/each}}
-                        </div>
                      {{else}}  
                            <a> Học phần này không có học phần điều kiện nào</a>
                      {{/if}}
                   </div>
                   <div class="info_image">
                         <img id="myimage" src='{{srcText}}' width="850" height="300" alt="Sơ đồ môn học điều kiện, nếu không thấy thì link đến ảnh bị lỗi rồi">
-                        <div id="myresult" class="img-zoom-result"></div>
+                        <div style="display:flex">
+                           <div id="myresult" class="img-zoom-result"></div>
+                           <div id="calc-cheapest">
+                              <a>Hiển thị các học phần rẻ nhất có thể để học môn này </a>
+                              <button  id="calcBtn" >Hiển thị</button>
+                           </div>
+                        </div>                 
                   </div>
                </div>
                <div class="container user-interaction">
