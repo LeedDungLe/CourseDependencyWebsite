@@ -34,7 +34,7 @@
             {{#if isExist}}
                <div id="info_container">
                   <div class="info_detail">
-                     <a>Mã học phần: </a>{{moduleCode}}<br><br>
+                     <a>Mã học phần: </a> <div id="moduleCode">{{moduleCode}}</div><br><br>
                      <a>Tên học phần: </a><br>{{moduleName}}<br><br>
                      <a>Thời lượng: </a>{{Duration}}<br><br>
                      <a>Số tín chỉ: </a>{{NumberOfCredits}}<br><br>
@@ -43,6 +43,7 @@
                      <a>Viện quản lý: </a><br>{{FactorManagementInstitute}}<br><br>
                      <a>Mục tiêu: </a><br>{{goal}}<br><br>
                      <a>Nội dung: </a><br>{{content}}<br><br>
+                     <a>Môn này có thể cần cho </a><b>{{countDep}}</b><a> môn khác</a><br><br>
                      {{#if needPreCondition}}
                         <a>Học phần điều kiện: </a><br>{{conditonModule}}<br><br>
                         {{#if isRequire}}
@@ -68,7 +69,7 @@
                               {{/each}}
                               <br>
                            {{/if}} 
-                           <br><b>----------------------</b><br>
+                           <br><br>
                         {{else}}
                            <br>
                         {{/if}}
@@ -77,13 +78,18 @@
                      {{/if}}
                   </div>
                   <div class="info_image">
-                        <img id="myimage" src='{{srcText}}' width="850" height="300" alt="Sơ đồ môn học điều kiện, nếu không thấy thì link đến ảnh bị lỗi rồi">
-                        <div style="display:flex">
-                           <div id="myresult" class="img-zoom-result"></div>
-                           <div id="calc-cheapest">
-                              <a>Hiển thị các học phần rẻ nhất có thể để học môn này </a>
-                              <button  id="calcBtn" >Hiển thị</button>
+                        <a href="{{srcText}}" target="_blank">
+                           <img id="myimage" src='{{srcText}}' width="850" height="300"  alt="Sơ đồ môn học điều kiện, nếu không thấy thì link đến ảnh bị lỗi rồi">
+                        </a>
+                        <div style="display:flex;padding-left:10px;padding-top:20px;border: 1px solid black;">
+                           <div  style="width:500px">
+                              {{#if hasSubImage}}
+                              <a><b>Các học phần cần học để có tổng tín chị học phí thấp nhất</b></a>
+                              <br><br>
+                              <img id="subImage" src='{{filePath}}'>
+                              {{/if}}
                            </div>
+                           <div id="myresult" class="img-zoom-result"></div>
                         </div>                 
                   </div>
                </div>
@@ -106,7 +112,7 @@
 
 <div class="footer" id="footer-container">
    <div class="source_info">
-      <a>* Dữ liệu được lấy từ trang  </a> <b></b><a href="http://sis.hust.edu.vn/ModuleProgram/CourseLists.aspx" target="_blank"> SIS</a></b>
+      <a>* Dữ liệu được lấy từ trang  </a> <b></b><a href="https://https://ctt-sis.hust.edu.vn/" target="_blank"> CTT</a></b>
    </div>   
 </div>
 

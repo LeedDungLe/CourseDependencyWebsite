@@ -76,12 +76,13 @@ $(function() {
     }
 
     function sendComment() {
+        tempVar = $("#moduleCode").html()
+        console.log(tempVar)
         $.post("http://localhost:70/test", {
-                name: "Donald Duck",
-                city: "Duckburg"
+                code: tempVar
             },
             function(data, status) {
-                console.log("success")
+                console.log("cool")
             });
     }
 

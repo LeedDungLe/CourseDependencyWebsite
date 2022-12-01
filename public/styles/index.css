@@ -139,6 +139,7 @@ body {
     /*set the size of the result div:*/
     width: 300px;
     height: 300px;
+    margin: 20px;
 }
 
 .button {
@@ -215,8 +216,6 @@ a:visited {
     cursor: pointer;
 }
 
-.hustLogo {
-    background-image: url("../Logo_Hust.png");
-    margin: 6px 0px 6px 20px;
-    cursor: pointer;
+#myresult {
+    padding-left: 30px;
 }
