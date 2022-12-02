@@ -16,6 +16,7 @@ body {
     margin-top: auto;
     margin-bottom: auto;
     display: flex;
+    border: 1px solid black
 }
 
 .container {
@@ -42,7 +43,16 @@ body {
     box-shadow: 5px 5px #b6b2b2;
 }
 
-.my-recommend {
+#my-name {
+    background-color: #daced8;
+    border: solid 2px #547b7b;
+    box-shadow: 5px 5px #b6b2b2;
+    margin-bottom: 10px;
+    width: 300px;
+    height: 35px;
+}
+
+#my-recommend {
     background-color: #daced8;
     border: solid 2px #547b7b;
     box-shadow: 5px 5px #b6b2b2;
@@ -110,8 +120,7 @@ body {
 
 .recommend_input {
     display: flex;
-    flex-direction: row;
-    height: 40px;
+    flex-direction: column;
     margin-top: 10px;
 }
 
@@ -218,4 +227,12 @@ a:visited {
 
 #myresult {
     padding-left: 30px;
+}
+
+#subImgInfo {
+    padding-left: 20px;
+    border: 1px solid black;
+    padding-top: 20px;
+    background-color: mintcream;
+    box-shadow: 5px 5px #b6b2b2
 }

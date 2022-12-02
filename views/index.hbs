@@ -81,13 +81,15 @@
                         <a href="{{srcText}}" target="_blank">
                            <img id="myimage" src='{{srcText}}' width="850" height="300"  alt="Sơ đồ môn học điều kiện, nếu không thấy thì link đến ảnh bị lỗi rồi">
                         </a>
-                        <div style="display:flex;padding-left:10px;padding-top:20px;border: 1px solid black;">
-                           <div  style="width:500px">
-                              {{#if hasSubImage}}
-                              <a><b>Các học phần cần học để có tổng tín chị học phí thấp nhất</b></a>
-                              <br><br>
-                              <img id="subImage" src='{{filePath}}'>
-                              {{/if}}
+                        <div style="display:flex;padding-top:20px">
+                           <div style = "width: 500px;">
+                           {{#if hasSubImage}}
+                              <div  id="subImgInfo">  
+                                 <a><b>Các học phần cần học để có tổng tín chị học phí thấp nhất</b></a>
+                                 <br><br>
+                                 <img id="subImage" src='{{filePath}}'>
+                              </div>
+                           {{/if}}
                            </div>
                            <div id="myresult" class="img-zoom-result"></div>
                         </div>                 
@@ -99,8 +101,11 @@
                   <br>
                   <div> Ý kiến của bạn </div>
                   <div class="recommend_input">
-                     <input  type="text" maxlength="150" class ="my-recommend" required>
-                     <button class ="my_recommend_btn" id="sendCommentBtn">Gửi</button>
+                     <input  type="text" maxlength="15" placeholder="Nhập MSSV vào đây..." id="my-name">
+                     <div style="display:flex;flex-direction:row">
+                        <input  type="text" maxlength="150" id="my-recommend" placeholder="Nhập nội dung vào đây..." required>
+                        <button class ="my_recommend_btn" id="sendCommentBtn">Gửi</button>
+                     </div>
                   </div>
                </div>
             {{else}}

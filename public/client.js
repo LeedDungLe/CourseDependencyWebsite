@@ -77,13 +77,28 @@ $(function() {
 
     function sendComment() {
         tempVar = $("#moduleCode").html()
-        console.log(tempVar)
-        $.post("http://localhost:70/test", {
-                code: tempVar
-            },
-            function(data, status) {
-                console.log("cool")
+        myName = $("#my-name").val()
+        content = $("#my-recommend").val()
+        $("#my-name").val("")
+        $("#my-recommend").val("")
+        if (content.trim() == "") {
+            alert("Bạn cần nhập vào nội dung")
+        } else {
+            if (myName.trim() == "") {
+                myName = "anonymous"
+            }
+            console.log(content)
+            console.log(myName)
+
+            $.post("http://localhost:70/test", {
+                code: tempVar,
+                userName: myName,
+                content: content
+            }, function(data, status) {
+                console.log("serverOk")
             });
+
+        }
     }
 
 });

@@ -39,8 +39,13 @@ app.post('/', (req, res) => {
                 showDetail: true
             });
         } else {
+            var insertQuery = "INSERT INTO searchcount (maHocPhan, userAgent) VALUES (?,?)";
+            con.query(insertQuery, [req.body.task_id, req.headers['user-agent']], function(err, result) {
+                if (err) throw err;
+                console.log(result);
+            });
             let countQuery = "SELECT COUNT(*) as count FROM coursedata where hocPhanDieuKien like ?";
-            con.query(countQuery, ['%' + req.body.task_id] + '%', (err, countDep) => {
+            con.query(countQuery, '%' + [req.body.task_id] + '%', (err, countDep) => {
                 if (err) throw err;
                 urlImg = "http://sinno.soict.ai:37080/course?id=" + req.body.task_id
                     // urlImg = "http://localhost:80/course?id=" + req.body.task_id
