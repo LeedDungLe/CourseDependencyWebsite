@@ -41,6 +41,9 @@ body {
     margin-bottom: 15px;
     margin-top: 10px;
     box-shadow: 5px 5px #b6b2b2;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 #my-name {
@@ -166,20 +169,16 @@ body {
 .login_form_popup {
     display: none;
     position: fixed;
-    background-color: rgb(227, 240, 201);
+    background-color: lightyellow;
     top: 10%;
     left: 40%;
-    border: 3px solid #71e84d;
+    border: 3px solid black;
     z-index: 9;
-}
-
-.form-container {
     max-width: 300px;
     padding: 10px;
 }
 
-.form-container .btn {
-    background-color: #04AA6D;
+.login_form_popup .btn {
     color: white;
     padding: 16px 20px;
     border: none;
@@ -189,23 +188,28 @@ body {
     opacity: 0.8;
 }
 
-.form-container .cancel {
+.login_form_popup .enter {
+    background-color: rgb(25 184 229);
+    ;
+}
+
+.login_form_popup .cancel {
     background-color: red;
 }
 
-.form-container .btn:hover,
+.login_form_popup .btn:hover,
 .open-button:hover {
     opacity: 1;
 }
 
-.form-container input[type=text]:focus,
-.form-container input[type=password]:focus {
+.login_form_popup input[type=text]:focus,
+.login_form_popup input[type=password]:focus {
     background-color: #ddd;
     outline: none;
 }
 
-.form-container input[type=text],
-.form-container input[type=password] {
+.login_form_popup input[type=text],
+.login_form_popup input[type=password] {
     width: 100%;
     padding: 15px;
     margin: 5px 0 22px 0;

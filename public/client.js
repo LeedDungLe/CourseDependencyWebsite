@@ -61,6 +61,7 @@ function imageZoom(imgID, resultID) {
 $(function() {
     $("#loginBtn").on("click", clickLoginBtn)
     $("#closeLoginFormBtn").on("click", closeLoginForm)
+    $("#EnterLoginBtn").on("click", checkLoginInfo)
     $("#sendCommentBtn").on("click", sendComment)
 
     function clickLoginBtn() {
@@ -75,8 +76,24 @@ $(function() {
         $("#body-container").css("filter", "brightness(100%)")
     }
 
+    function checkLoginInfo() {
+        username = $("#username").val()
+        password = $("#password").val()
+        $.post("http://localhost:70/login", {
+            username: username,
+            password: password,
+        }, function(data, status) {
+            if (data == "invalid") {
+                alert("thông tin đăng nhập không chính xác !")
+                closeLoginForm()
+                $("#username").val("")
+                $("#password").val("")
+            }
+        });
+    }
+
     function sendComment() {
-        tempVar = $("#moduleCode").html()
+        moduleCode = $("#moduleCode").html()
         myName = $("#my-name").val()
         content = $("#my-recommend").val()
         $("#my-name").val("")
@@ -90,12 +107,12 @@ $(function() {
             console.log(content)
             console.log(myName)
 
-            $.post("http://localhost:70/test", {
-                code: tempVar,
+            $.post("http://localhost:70/comment", {
+                code: moduleCode,
                 userName: myName,
                 content: content
             }, function(data, status) {
-                console.log("serverOk")
+                alert("Bình luận thành công")
             });
 
         }

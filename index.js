@@ -28,10 +28,8 @@ Handlebars.registerHelper("inc", function(value, options) {
 
 app.post('/', (req, res) => {
     let query = "SELECT * FROM coursedata WHERE maHocPhan = ?";
-    data = [
-        req.body.task_id
-    ]
-    con.query(query, [data], (err, result) => {
+    moduleCode = req.body.task_id.trim()
+    con.query(query, [moduleCode], (err, result) => {
         if (err) throw err;
         if (result.length === 0) {
             res.render('index', {
@@ -40,113 +38,118 @@ app.post('/', (req, res) => {
             });
         } else {
             var insertQuery = "INSERT INTO searchcount (maHocPhan, userAgent) VALUES (?,?)";
-            con.query(insertQuery, [req.body.task_id, req.headers['user-agent']], function(err, result) {
+            con.query(insertQuery, [moduleCode, req.headers['user-agent']], function(err, result) {
                 if (err) throw err;
-                console.log(result);
             });
-            let countQuery = "SELECT COUNT(*) as count FROM coursedata where hocPhanDieuKien like ?";
-            con.query(countQuery, '%' + [req.body.task_id] + '%', (err, countDep) => {
+            let commentQuery = "SELECT  content, uploader, substr(dateTime,1,23) as dateTime FROM comments WHERE maHocPhan = ?";
+            con.query(commentQuery, [moduleCode], (err, cmtLst) => {
                 if (err) throw err;
-                urlImg = "http://sinno.soict.ai:37080/course?id=" + req.body.task_id
-                    // urlImg = "http://localhost:80/course?id=" + req.body.task_id
-                    // Nếu không có yêu cầu học phần điều kiện
-                if (result[0].hocPhanDieuKien.trim() == '') {
-                    res.render('index', {
-                        isExist: true,
-                        showDetail: true,
-                        moduleCode: result[0].maHocPhan,
-                        moduleName: result[0].tenHocPhan,
-                        Duration: result[0].thoiLuong,
-                        NumberOfCredits: result[0].soTinChi,
-                        TCTuitionFees: result[0].tinChiHocPhi,
-                        Weighting: result[0].trongSo,
-                        FactorManagementInstitute: result[0].vienQuanLy,
-                        goal: result[0].mucTieu,
-                        content: result[0].noiDung,
-                        conditonModule: result[0].hocPhanDieuKien,
-                        srcText: urlImg,
-                        needPreCondition: false,
-                        countDep: countDep[0].count
-                    });
-                }
-                // Với trường hợp có yêu cầu các học phần điều kiện
-                else {
-                    var spawn = require('child_process').spawn;
-                    var process2 = spawn('python', [
-                        './calc.py', req.body.task_id
-                    ]);
-                    process2.stdout.on('data', function(data1) {
-                        data1 = data1.toString().replace(/(\r\n|\n|\r)/gm, "");
-                        hasSubImage = true
-                        if (data1 == "stop") {
-                            hasSubImage = false
-                        }
-                        var process = spawn('python', [
-                            './script.py', result[0].hocPhanDieuKien
-                        ]);
-                        process.stdout.on('data', function(data) {
-                            // giá trị từ phía python trả về dưới dạng buffer, chuyển đổi sang dạng dữ liệu có thể dùng được
-                            data = data.toString().replace(/(\r\n|\n|\r)/gm, "");
-                            data = eval(`(${data})`);
-                            console.log(data)
-                                // Nếu không có học phần bắt buộc
-                            if (data.preCourseLst.length == 0 &&
-                                data.prerequite.length == 0 &&
-                                data.corequisite.length == 0) {
-                                res.render('index', {
-                                    isExist: true,
-                                    showDetail: true,
-                                    moduleCode: result[0].maHocPhan,
-                                    moduleName: result[0].tenHocPhan,
-                                    Duration: result[0].thoiLuong,
-                                    NumberOfCredits: result[0].soTinChi,
-                                    TCTuitionFees: result[0].tinChiHocPhi,
-                                    Weighting: result[0].trongSo,
-                                    FactorManagementInstitute: result[0].vienQuanLy,
-                                    goal: result[0].mucTieu,
-                                    content: result[0].noiDung,
-                                    conditonModule: result[0].hocPhanDieuKien,
-                                    srcText: urlImg,
-                                    isRequire: false,
-                                    needPreCondition: true,
-                                    hasSubImage: hasSubImage,
-                                    filePath: data1,
-                                    countDep: countDep[0].count
-                                });
-                            } else {
-                                res.render('index', {
-                                    isExist: true,
-                                    showDetail: true,
-                                    moduleCode: result[0].maHocPhan,
-                                    moduleName: result[0].tenHocPhan,
-                                    Duration: result[0].thoiLuong,
-                                    NumberOfCredits: result[0].soTinChi,
-                                    TCTuitionFees: result[0].tinChiHocPhi,
-                                    Weighting: result[0].trongSo,
-                                    FactorManagementInstitute: result[0].vienQuanLy,
-                                    goal: result[0].mucTieu,
-                                    content: result[0].noiDung,
-                                    conditonModule: result[0].hocPhanDieuKien,
-                                    srcText: urlImg,
-                                    isRequire: true,
-                                    requirement: data,
-                                    needPreCondition: true,
-                                    hasSubImage: hasSubImage,
-                                    filePath: data1,
-                                    countDep: countDep[0].count
-                                });
-                            }
+                let countQuery = "SELECT COUNT(*) as count FROM coursedata where hocPhanDieuKien like ?";
+                con.query(countQuery, '%' + [moduleCode] + '%', (err, countDep) => {
+                    if (err) throw err;
+                    urlImg = "http://sinno.soict.ai:37080/course?id=" + moduleCode
+                        // urlImg = "http://localhost:80/course?id=" + moduleCode
+                        // Nếu không có yêu cầu học phần điều kiện
+                    if (result[0].hocPhanDieuKien.trim() == '') {
+                        res.render('index', {
+                            isExist: true,
+                            showDetail: true,
+                            moduleCode: result[0].maHocPhan,
+                            moduleName: result[0].tenHocPhan,
+                            Duration: result[0].thoiLuong,
+                            NumberOfCredits: result[0].soTinChi,
+                            TCTuitionFees: result[0].tinChiHocPhi,
+                            Weighting: result[0].trongSo,
+                            FactorManagementInstitute: result[0].vienQuanLy,
+                            goal: result[0].mucTieu,
+                            content: result[0].noiDung,
+                            conditonModule: result[0].hocPhanDieuKien,
+                            srcText: urlImg,
+                            needPreCondition: false,
+                            countDep: countDep[0].count,
+                            cmtLst: cmtLst
                         });
-                    })
-                }
+                    }
+                    // Với trường hợp có yêu cầu các học phần điều kiện
+                    else {
+                        var spawn = require('child_process').spawn;
+                        var process2 = spawn('python', [
+                            './calc.py', moduleCode
+                        ]);
+                        process2.stdout.on('data', function(data1) {
+                            data1 = data1.toString().replace(/(\r\n|\n|\r)/gm, "");
+                            hasSubImage = true
+                            if (data1 == "stop") {
+                                hasSubImage = false
+                            }
+                            var process = spawn('python', [
+                                './script.py', result[0].hocPhanDieuKien
+                            ]);
+                            process.stdout.on('data', function(data) {
+                                // giá trị từ phía python trả về dưới dạng buffer, chuyển đổi sang dạng dữ liệu có thể dùng được
+                                data = data.toString().replace(/(\r\n|\n|\r)/gm, "");
+                                data = eval(`(${data})`);
+                                // Nếu không có học phần bắt buộc
+                                if (data.preCourseLst.length == 0 &&
+                                    data.prerequite.length == 0 &&
+                                    data.corequisite.length == 0) {
+                                    res.render('index', {
+                                        isExist: true,
+                                        showDetail: true,
+                                        moduleCode: result[0].maHocPhan,
+                                        moduleName: result[0].tenHocPhan,
+                                        Duration: result[0].thoiLuong,
+                                        NumberOfCredits: result[0].soTinChi,
+                                        TCTuitionFees: result[0].tinChiHocPhi,
+                                        Weighting: result[0].trongSo,
+                                        FactorManagementInstitute: result[0].vienQuanLy,
+                                        goal: result[0].mucTieu,
+                                        content: result[0].noiDung,
+                                        conditonModule: result[0].hocPhanDieuKien,
+                                        srcText: urlImg,
+                                        isRequire: false,
+                                        needPreCondition: true,
+                                        hasSubImage: hasSubImage,
+                                        filePath: data1,
+                                        countDep: countDep[0].count,
+                                        cmtLst: cmtLst
+                                    });
+                                } else {
+                                    res.render('index', {
+                                        isExist: true,
+                                        showDetail: true,
+                                        moduleCode: result[0].maHocPhan,
+                                        moduleName: result[0].tenHocPhan,
+                                        Duration: result[0].thoiLuong,
+                                        NumberOfCredits: result[0].soTinChi,
+                                        TCTuitionFees: result[0].tinChiHocPhi,
+                                        Weighting: result[0].trongSo,
+                                        FactorManagementInstitute: result[0].vienQuanLy,
+                                        goal: result[0].mucTieu,
+                                        content: result[0].noiDung,
+                                        conditonModule: result[0].hocPhanDieuKien,
+                                        srcText: urlImg,
+                                        isRequire: true,
+                                        requirement: data,
+                                        needPreCondition: true,
+                                        hasSubImage: hasSubImage,
+                                        filePath: data1,
+                                        countDep: countDep[0].count,
+                                        cmtLst: cmtLst
+                                    });
+                                }
+                            });
+                        })
+                    }
 
 
+                })
             })
         }
     })
 })
 
-app.get('/:task_id', (req, res) => {
+app.get('/code/:task_id', (req, res) => {
     let query = "SELECT * FROM coursedata WHERE maHocPhan = ?";
     data = [
         req.params.task_id
@@ -234,10 +237,31 @@ app.get('/:task_id', (req, res) => {
     })
 })
 
-app.post('/test', (req, res) => {
-    console.log(req.body)
+app.post('/comment', (req, res) => {
+    var insertQuery = "INSERT INTO comments (maHocPhan, uploader, content) VALUES (?,?,?)";
+    con.query(insertQuery, [req.body["code"], req.body["userName"], req.body["content"]], function(err, result) {
+        if (err) throw err;
+    });
     res.status(200).send("success");
 });
+
+app.post('/login', (req, res) => {
+    var logintQuery = "SELECT * FROM users where name = ? AND password = ? ";
+    con.query(logintQuery, [req.body["username"], req.body["password"]], function(err, result) {
+        if (err) throw err;
+        if (result.length === 0) {
+            res.send("invalid")
+        } else {
+            res.render('admin');
+        }
+    });
+})
+
+app.get('/admin', (req, res) => {
+    res.render('admin', { layout: false });
+})
+
+
 
 // port where app is served
 app.listen(70, () => {

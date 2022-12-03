@@ -7,18 +7,16 @@
 </div>
 
       <div class="login_form_popup" id="loginForm">
-         <form action="/login" class="form-container">
             <h1>Login</h1>
 
             <label for="email"><b>Username</b></label>
-            <input type="text" placeholder="Enter username" name="username" required>
+            <input type="text" placeholder="Enter username" id="username" required>
 
             <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required>
+            <input type="password" placeholder="Enter Password" id="password" required>
 
-            <button type="submit" class="btn">Login</button>
+            <button  class="btn enter" id="EnterLoginBtn">Login</button>
             <button type="button" class="btn cancel" id="closeLoginFormBtn">Close</button>
-         </form>
       </div>
 
 <div class="container" id="body-container">
@@ -65,7 +63,7 @@
                            {{#if requirement.corequisite}}
                               <a>Học phần song song: </a>  
                               {{#each requirement.corequisite}}
-                                   <a href="/{{this}}">{{this}}</a> 
+                                   <a href="/code/{{this}}">{{this}}</a> 
                               {{/each}}
                               <br>
                            {{/if}} 
@@ -97,7 +95,11 @@
                </div>
                <div class="container user-interaction">
                   <a>Gợi ý từ mọi người về môn học này</a>
-                  <div class="recommend-content"></div>
+                  <div class="recommend-content">
+                     {{#each cmtLst}}
+                        <div><a style="color:gray">( {{this.dateTime}} ) </a><a>{{this.uploader}} : {{this.content}}</a> </div>
+                     {{/each}}
+                  </div>
                   <br>
                   <div> Ý kiến của bạn </div>
                   <div class="recommend_input">
