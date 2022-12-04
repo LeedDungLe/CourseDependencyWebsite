@@ -63,6 +63,12 @@ $(function() {
     $("#closeLoginFormBtn").on("click", closeLoginForm)
     $("#EnterLoginBtn").on("click", checkLoginInfo)
     $("#sendCommentBtn").on("click", sendComment)
+    $("#logoutBtn").on("click", logOut)
+
+    function logOut() {
+        alert("Thoát đăng nhập")
+        window.location = "http://localhost:70";
+    }
 
     function clickLoginBtn() {
         $("#loginForm").show()
@@ -88,6 +94,9 @@ $(function() {
                 closeLoginForm()
                 $("#username").val("")
                 $("#password").val("")
+            } else {
+                alert("đăng nhập thành công")
+                window.location = "http://localhost:70/login";
             }
         });
     }

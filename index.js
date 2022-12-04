@@ -252,13 +252,13 @@ app.post('/login', (req, res) => {
         if (result.length === 0) {
             res.send("invalid")
         } else {
-            res.render('admin');
+            res.status(200).send("loginOK");
         }
     });
 })
 
-app.get('/admin', (req, res) => {
-    res.render('admin', { layout: false });
+app.get('/login', (req, res) => {
+    res.render('admin', {});
 })
 
 
