@@ -8,8 +8,8 @@ body {
     flex-direction: column;
 }
 
-.header {
-    background-color: rgb(185 228 240);
+#header-container {
+    background-color: #563d7c;
     height: 100px;
     height: 100px;
     min-height: 100px;
@@ -19,13 +19,13 @@ body {
     border: 1px solid black
 }
 
-.container {
-    background-color: lightyellow;
+#body-container {
+    background-color: white;
     padding: 2%;
     flex: 1;
 }
 
-.footer {
+#footer-container {
     height: 50px;
     min-height: 50px;
     margin-bottom: auto;
@@ -35,52 +35,23 @@ body {
 
 .recommend-content {
     overflow-y: scroll;
-    border: solid 2px #547b7b;
+    border: solid 1px #547b7b;
     height: 200px;
-    background-color: #fcead4;
     margin-bottom: 15px;
     margin-top: 10px;
-    box-shadow: 5px 5px #b6b2b2;
     padding-left: 10px;
     display: flex;
     flex-direction: column;
 }
 
 #my-name {
-    background-color: #daced8;
-    border: solid 2px #547b7b;
-    box-shadow: 5px 5px #b6b2b2;
-    margin-bottom: 10px;
     width: 300px;
-    height: 35px;
+    margin-bottom: 10px;
 }
 
-#my-recommend {
-    background-color: #daced8;
-    border: solid 2px #547b7b;
-    box-shadow: 5px 5px #b6b2b2;
-    width: -webkit-fill-available;
-}
-
-#login {
-    margin-left: 200px;
+#right-header {
+    margin-left: 100px;
     margin-top: 30px;
-}
-
-#task {
-    padding: 1% 2%;
-    border-color: navy;
-    margin: 10px;
-}
-
-#submit {
-    padding: 1% 2%;
-    border-color: navy;
-    background-color: navy;
-    color: white;
-    margin: 10px;
-    width: 100px;
-    cursor: pointer;
 }
 
 .my_recommend_btn {
@@ -169,32 +140,13 @@ body {
 .login_form_popup {
     display: none;
     position: fixed;
-    background-color: lightyellow;
+    background-color: white;
     top: 10%;
     left: 40%;
-    border: 3px solid black;
+    border: 2px solid gray;
     z-index: 9;
     max-width: 300px;
     padding: 10px;
-}
-
-.login_form_popup .btn {
-    color: white;
-    padding: 16px 20px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    margin-bottom: 10px;
-    opacity: 0.8;
-}
-
-.login_form_popup .enter {
-    background-color: rgb(25 184 229);
-    ;
-}
-
-.login_form_popup .cancel {
-    background-color: red;
 }
 
 .login_form_popup .btn:hover,
@@ -225,10 +177,6 @@ a:visited {
     color: blue;
 }
 
-#loginBtn {
-    cursor: pointer;
-}
-
 #myresult {
     padding-left: 30px;
 }
@@ -237,6 +185,4 @@ a:visited {
     padding-left: 20px;
     border: 1px solid black;
     padding-top: 20px;
-    background-color: mintcream;
-    box-shadow: 5px 5px #b6b2b2
 }

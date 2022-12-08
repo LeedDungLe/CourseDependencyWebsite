@@ -1,47 +1,55 @@
-<div class="header" id="header-container">
+<div  id="header-container">
       <img src="Logo_Hust.png" style="margin: 6px 30px 6px 20px;">
-      <h1>Tra cứu học phần môn học trường Đại học Bách Khoa Hà Nội</h1>
-      <div id="login">
-         <button  id="loginBtn" >Đăng nhập</button>
+      <h2 style="padding-top:30px;color:white">Tra cứu học phần môn học trường Đại học Bách Khoa Hà Nội</h2>
+      <div id="right-header">
+         <button id="loginBtn"  class="btn btn-outline-warning" >Đăng nhập</button>
       </div>
 </div>
 
       <div class="login_form_popup" id="loginForm">
-            <h1>Login</h1>
+            <h1>Login</h1>     
 
-            <label for="email"><b>Username</b></label>
-            <input type="text" placeholder="Enter username" id="username" required>
-
-            <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" id="password" required>
-
-            <button  class="btn enter" id="EnterLoginBtn">Login</button>
-            <button type="button" class="btn cancel" id="closeLoginFormBtn">Close</button>
+            <div class="form-group">
+               <label>Username</label>
+               <input type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Enter username" required>
+            </div>
+            <div class="form-group">
+               <label for="psw">Password</label>
+               <input type="password" class="form-control" id="password" placeholder="Enter Password" required>
+            </div>
+            <div style="float:right">
+               <button  class="btn btn-success" id="EnterLoginBtn">Login</button>
+               <button type="button" class="btn btn-secondary" id="closeLoginFormBtn">Close</button>
+            </div>
       </div>
 
-<div class="container" id="body-container">
+<div  id="body-container">
    <div class="input_container">
       <h3>Nhập mã học phần tại đây</h3>
-      <form method="POST" action="/" class="form_input">
-         <input  type="text" name="task_id" id="task" placeholder="tìm kiếm..." required>
-         <button type="submit" id="submit">Tra cứu</button>
+      <form method="POST" action="/" class="form_input">      
+         <div class="input-group mb-3">
+            <input type="text" class="form-control" name="task_id" placeholder="tìm kiếm..." aria-label="Recipient's username" aria-describedby="button-addon2">
+            <div class="input-group-append">
+               <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Tra cứu</button>
+            </div>
+         </div>
       </form>
    </div>
    <div>
          {{#if showDetail}}
             {{#if isExist}}
                <div id="info_container">
-                  <div class="info_detail">
-                     <a>Mã học phần: </a> <div id="moduleCode">{{moduleCode}}</div><br><br>
-                     <a>Tên học phần: </a><br>{{moduleName}}<br><br>
-                     <a>Thời lượng: </a>{{Duration}}<br><br>
-                     <a>Số tín chỉ: </a>{{NumberOfCredits}}<br><br>
-                     <a>Tín chỉ học phí: </a>{{TCTuitionFees}}<br><br>
-                     <a>Trọng số: </a>{{Weighting}}<br><br>
-                     <a>Viện quản lý: </a><br>{{FactorManagementInstitute}}<br><br>
-                     <a>Mục tiêu: </a><br>{{goal}}<br><br>
-                     <a>Nội dung: </a><br>{{content}}<br><br>
-                     <a>Môn này có thể cần cho </a><b>{{countDep}}</b><a> môn khác</a><br><br>
+                  <div class="card bg-light mb-3 shadow p-3 mb-5 bg-white rounded" style="padding: 15px;word-wrap: break-word;">
+                     <h3 id="moduleCode">{{moduleCode}}</h3><br>
+                     <a>Tên học phần:  </a>{{moduleName}}<br><br>
+                     <a>Thời lượng:   {{Duration}}</a><br>
+                     <a>Số tín chỉ:   {{NumberOfCredits}}</a><br>
+                     <a>Tín chỉ học phí:   {{TCTuitionFees}}</a><br>
+                     <a>Trọng số:   {{Weighting}}</a><br>
+                     <a>Viện quản lý:   {{FactorManagementInstitute}}</a><br><br>
+                     <a>Mục tiêu: </a>{{goal}}<br><br>
+                     <a>Nội dung: </a>{{content}}<br><br>
+                     <a>Môn này có thể cần cho <b>{{countDep}}</b> môn khác</a><br><br>
                      {{#if needPreCondition}}
                         <a>Học phần điều kiện: </a><br>{{conditonModule}}<br><br>
                         {{#if isRequire}}
@@ -49,21 +57,21 @@
                            {{#if requirement.preCourseLst}}
                               <a>Học phần điều kiện: </a> 
                               {{#each requirement.preCourseLst}}
-                                   <a href="/{{this}}">{{this}}</a> 
+                                   <a href="/code?task_id={{this}}">{{this}}</a> 
                               {{/each}}
                               <br>
                            {{/if}} 
                            {{#if requirement.prerequite}}  
                               <a>Học phần tiên quyết: </a> 
                               {{#each requirement.prerequite}}
-                                   <a href="/{{this}}">{{this}}</a> 
+                                   <a href="/code?task_id={{this}}">{{this}}</a> 
                               {{/each}}
                               <br>
                            {{/if}} 
                            {{#if requirement.corequisite}}
                               <a>Học phần song song: </a>  
                               {{#each requirement.corequisite}}
-                                   <a href="/code/{{this}}">{{this}}</a> 
+                                   <a href="/code?task_id={{this}}">{{this}}</a> 
                               {{/each}}
                               <br>
                            {{/if}} 
@@ -75,7 +83,9 @@
                            <a> Học phần này không có học phần điều kiện nào</a>
                      {{/if}}
                   </div>
-                  <div class="info_image">
+
+
+                  <div class="info_image" >
                         <a href="{{srcText}}" target="_blank">
                            <img id="myimage" src='{{srcText}}' width="850" height="300"  alt="Sơ đồ môn học điều kiện, nếu không thấy thì link đến ảnh bị lỗi rồi">
                         </a>
@@ -93,9 +103,11 @@
                         </div>                 
                   </div>
                </div>
-               <div class="container user-interaction">
+
+               
+               <div class="user-interaction">
                   <a>Gợi ý từ mọi người về môn học này</a>
-                  <div class="recommend-content">
+                  <div class="recommend-content shadow p-3 mb-5 bg-white rounded">
                      {{#each cmtLst}}
                         <div><a style="color:gray">( {{this.dateTime}} ) </a><a>{{this.uploader}} : {{this.content}}</a> </div>
                      {{/each}}
@@ -103,11 +115,14 @@
                   <br>
                   <div> Ý kiến của bạn </div>
                   <div class="recommend_input">
-                     <input  type="text" maxlength="15" placeholder="Nhập MSSV vào đây..." id="my-name">
-                     <div style="display:flex;flex-direction:row">
-                        <input  type="text" maxlength="150" id="my-recommend" placeholder="Nhập nội dung vào đây..." required>
-                        <button class ="my_recommend_btn" id="sendCommentBtn">Gửi</button>
+                     <input  type="text" maxlength="15"  class="form-control" placeholder="Nhập MSSV vào đây..." id="my-name">
+                     <div class="input-group mb-3">
+                        <input type="text" maxlength="150" id="my-recommend" class="form-control" placeholder="Nhập nội dung vào đây..." aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <div class="input-group-append">
+                           <button class="btn btn-outline-secondary" id="sendCommentBtn" type="button">Gửi</button>
+                        </div>
                      </div>
+
                   </div>
                </div>
             {{else}}
@@ -117,7 +132,7 @@
    </div>
 </div>
 
-<div class="footer" id="footer-container">
+<div  id="footer-container">
    <div class="source_info">
       <a>* Dữ liệu được lấy từ trang  </a> <b></b><a href="https://https://ctt-sis.hust.edu.vn/" target="_blank"> CTT</a></b>
    </div>   
