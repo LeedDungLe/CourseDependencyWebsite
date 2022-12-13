@@ -30,7 +30,7 @@ RecommendLst=  re.split(',(?![^\(\[]*[\]\)])',preModule.strip())
 
 priorityLst = []
 for courses in RecommendLst:
-    if "(" in courses or ")" in courses :
+    if "(" in courses or ")" in courses or "/" in courses :
         continue
     else:
         priorityLst.append(courses.strip())

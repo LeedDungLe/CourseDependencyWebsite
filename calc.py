@@ -30,7 +30,7 @@ def getInfoModule( moduleCode):
     return result
 
 
-def findCheapest( moduleCode, count,):
+def findCheapest( moduleCode, count, upperList):
     """_summary_
         Lấy các thông tin của học phần
     Args:
@@ -39,23 +39,38 @@ def findCheapest( moduleCode, count,):
         listHP: các học phần diều kiện tối ưu học phí nhất
         minVal: Tổng học phí khi học các học phần trên  
     """
+    
+    duplicate = False
     breakout = False
     count = count + 1
+    print(count)
     if count >= 970:
         return "stop"
     listHP =[]
     minVal = 999
     
     moduleObj = getInfoModule(moduleCode)
+    
+    # Check học phận đã được kiểm tra để không lặp lại
+    if moduleObj["MinFeeSum"] == 999:
+        minVal = 999
+    else :
+        return {
+            "listHP" : moduleObj["ListMinFeeHP"],
+            "minVal" : moduleObj["MinFeeSum"]
+        }
+    # Check nút lá
     if len(moduleObj["Dep"]) == 0 :
         return {
             "listHP" : [],
             "minVal" : 0
         }
     else :
+        upperList.append(moduleCode)
         optionModuleLst = convertToListOption(moduleObj)  
         # Duyệt từng cụm các HP recommend  
         for CourseLst in optionModuleLst:
+            subUpperList = upperList.copy()
             SumVal = math.fsum(x["FeeVal"] for x in CourseLst) # Tổng học phí phải bao gồm tổng các HP bên trong cụm
             tempList = []
             tempList.append({
@@ -64,20 +79,32 @@ def findCheapest( moduleCode, count,):
             })            
             # Duyệt từng học phần bên trong cụm các HP recommend
             for course in CourseLst:
-                currentCourse = findCheapest(course["HP"],count)
+                if course["HP"] in subUpperList:
+                    duplicate = True
+                    break
+                currentCourse = findCheapest(course["HP"],count,subUpperList)
                 if currentCourse == "stop" :
                     breakout = True
                     break
                 tempList.extend(currentCourse["listHP"])
                 SumVal = SumVal + currentCourse["minVal"]
             if breakout == True:
-                break    
+                break 
+            if duplicate == True:
+                continue   
             if SumVal <= minVal:
                 minVal = SumVal
                 listHP = tempList.copy()
     if breakout == True :
         return "stop"
 
+    for item in standardizedCourses:
+        if item["HP"] == moduleCode :
+            item["MinFeeSum"] = minVal
+            item["ListMinFeeHP"] = listHP
+            break    
+
+    print(moduleCode)
     return {
             "listHP" : listHP,
             "minVal" : minVal
@@ -126,8 +153,8 @@ is_file_exists = exists(COURSE_COLLECTION_FOLDER + "/public/" + filePath)
 if(is_file_exists) :
     print(filePath)
 else: 
-
-    cheapestLst = findCheapest( mainModuleCode,count)
+    upperList = []
+    cheapestLst = findCheapest( mainModuleCode,count,upperList)
 
     if cheapestLst == "stop":
         print("stop")
