@@ -7,7 +7,7 @@ from os.path import exists
 
 import sys
 
-count = 0
+
 
 # lay thong tin cua mon hoc
 def getInfoModule( moduleCode):
@@ -30,7 +30,7 @@ def getInfoModule( moduleCode):
     return result
 
 
-def findCheapest( moduleCode, count, upperList):
+def findCheapest( moduleCode, upperList):
     """_summary_
         Lấy các thông tin của học phần
     Args:
@@ -41,11 +41,7 @@ def findCheapest( moduleCode, count, upperList):
     """
     
     duplicate = False
-    breakout = False
-    count = count + 1
-    print(count)
-    if count >= 970:
-        return "stop"
+
     listHP =[]
     minVal = 999
     
@@ -82,21 +78,14 @@ def findCheapest( moduleCode, count, upperList):
                 if course["HP"] in subUpperList:
                     duplicate = True
                     break
-                currentCourse = findCheapest(course["HP"],count,subUpperList)
-                if currentCourse == "stop" :
-                    breakout = True
-                    break
+                currentCourse = findCheapest(course["HP"],subUpperList)
                 tempList.extend(currentCourse["listHP"])
                 SumVal = SumVal + currentCourse["minVal"]
-            if breakout == True:
-                break 
             if duplicate == True:
                 continue   
             if SumVal <= minVal:
                 minVal = SumVal
                 listHP = tempList.copy()
-    if breakout == True :
-        return "stop"
 
     for item in standardizedCourses:
         if item["HP"] == moduleCode :
@@ -104,7 +93,6 @@ def findCheapest( moduleCode, count, upperList):
             item["ListMinFeeHP"] = listHP
             break    
 
-    print(moduleCode)
     return {
             "listHP" : listHP,
             "minVal" : minVal
@@ -154,25 +142,22 @@ if(is_file_exists) :
     print(filePath)
 else: 
     upperList = []
-    cheapestLst = findCheapest( mainModuleCode,count,upperList)
+    cheapestLst = findCheapest( mainModuleCode,upperList)
 
-    if cheapestLst == "stop":
-        print("stop")
-    else :
-        dot = graphviz.Digraph('G', 
-                                node_attr={'shape': 'record',}, 
-                                edge_attr={'len': '2.0'}
-                                )
-        dot.attr('node', shape='house', color='red:orange', style='filled', gradientangle='270', fontcolor='white')
-        listHP = cheapestLst["listHP"].copy()
+    dot = graphviz.Digraph('G', 
+                            node_attr={'shape': 'record',}, 
+                            edge_attr={'len': '2.0'}
+                            )
+    dot.attr('node', shape='house', color='red:orange', style='filled', gradientangle='270', fontcolor='white')
+    listHP = cheapestLst["listHP"].copy()
 
-        for item in listHP:
-            for i in item["lineTree"]:
-                dot.edge(item["parent"],i)
+    for item in listHP:
+        for i in item["lineTree"]:
+            dot.edge(item["parent"],i)
             
-        dot.render(COURSE_COLLECTION_FOLDER + "/public/pic/" + mainModuleCode, view=False,cleanup=True,format='png')
-        dot.clear()
+    dot.render(COURSE_COLLECTION_FOLDER + "/public/pic/" + mainModuleCode, view=False,cleanup=True,format='png')
+    dot.clear()
         
-        print(filePath)
+    print(filePath)
 
 sys.stdout.flush();
