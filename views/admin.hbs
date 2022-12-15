@@ -8,6 +8,87 @@
 
 <div id="body-container">
 
+<h2>Kiểm tra thông tin tra cứu học phần</h2>
+<br>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="allModule-tab" data-bs-toggle="tab" data-bs-target="#allModule-tab-pane" type="button" role="tab" aria-controls="allModule-tab-pane" aria-selected="true">Tổng quan các học phần</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="eachModule-tab" data-bs-toggle="tab" data-bs-target="#eachModule-tab-pane" type="button" role="tab" aria-controls="eachModule-tab-pane" aria-selected="false">Từng học phần</button>
+  </li>
+</ul>
+
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="allModule-tab-pane" role="tabpanel" aria-labelledby="allModule-tab" tabindex="0">
+      <div id="search-all" class ="search-tab">
+         <form method="POST" action="/all" class="row row-cols-lg-auto g-3 align-items-center">
+            <div class="col-12">
+               <label for="startDateAll">từ ngày</label>
+            </div>
+            <div class="col-12">
+                  <input type="date" class="form-control" id="startDateAll" >
+            </div>
+
+            <div class="col-12">
+               <label for="endDateAll">đến ngày</label>
+            </div> 
+            <div class="col-12"> 
+               <input type="date" class="form-control" id="endDateAll" >
+            </div>
+
+
+            <div class="col-12">
+               <button type="button" id="searchAllBtn" class="btn btn-primary">Kiểm tra</button>
+            </div>
+         </form>        
+      </div>
+      <div class="no-result-message" id="noresultAll" style="display: none;">
+      <a>Không có học phần nào được tra cứu trong khoảng thời gian này </a>
+      </div>
+       <div id="pieChartContainer"></div>
+ 
+      {{!-- <div id="chartContainer" style="height: 300px"></div> --}}
+
+   </div>
+  <div class="tab-pane fade" id="eachModule-tab-pane" role="tabpanel" aria-labelledby="eachModule-tab" tabindex="0">
+      <div id="search-each" class ="search-tab">
+         <form  method="POST" action="/each" class="row row-cols-lg-auto g-3 align-items-center">
+            <div class="col-12">
+               <label for="startDateEach">từ ngày</label>
+            </div>
+            <div class="col-12">
+                  <input type="date" class="form-control" id="startDateEach" >
+            </div>
+
+            <div class="col-12">
+               <label for="endDateEach">đến ngày</label>
+            </div> 
+            <div class="col-12"> 
+               <input type="date" class="form-control" id="endDateEach" >
+            </div>
+
+            <div class="col-12">
+               <label for="moduleCodeSearch">mã học phần</label>
+            </div> 
+            <div class="col-12"> 
+               <input style="width:150px" type="text" class="form-control" id="moduleCodeSearch" >
+            </div>
+
+
+            <div class="col-12">
+               <button type="button" id="searchEachBtn" class="btn btn-primary">Kiểm tra</button>
+            </div>
+         </form>        
+      </div>
+
+      <div class="no-result-message" id="noresultEach" style="display: none;">
+      <a>Không có học phần nào được tra cứu trong khoảng thời gian này </a>
+      </div>
+      
+      {{!-- <div id="pieChartContainer"></div> --}}
+   </div>
+</div>
 
 
 

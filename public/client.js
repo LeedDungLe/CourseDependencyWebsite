@@ -64,6 +64,78 @@ $(function() {
     $("#EnterLoginBtn").on("click", checkLoginInfo)
     $("#sendCommentBtn").on("click", sendComment)
     $("#logoutBtn").on("click", logOut)
+    $("#searchAllBtn").on("click", searchAllModuleCode)
+    $("#searchAllBtn").on("click", searchEachModuleCode)
+
+    function searchAllModuleCode() {
+        startDate = $("#startDateAll").val()
+        endDate = $("#endDateAll").val()
+
+        if (startDate > endDate) {
+            alert("Khoảng thời gian không hợp lệ")
+        } else {
+            $.post("http://localhost:70/all", {
+                startDate: startDate,
+                endDate: endDate
+            }, function(data, status) {
+                console.log(data)
+                if (data === "noresult") {
+                    $("#noresultAll").show()
+                    if ($("#pieChartContainer").is(":hidden") == false) {
+                        $("#pieChartContainer").hide()
+                    }
+                } else {
+                    if ($("#noresultAll").is(":hidden") == false) {
+                        $("#noresultAll").hide()
+                    }
+                    if ($("#pieChartContainer").is(":hidden")) {
+                        $("#pieChartContainer").show()
+                    }
+                    Highcharts.chart('pieChartContainer', {
+                        chart: {
+                            plotBackgroundColor: null,
+                            plotBorderWidth: null,
+                            plotShadow: false,
+                            type: 'pie'
+                        },
+                        title: {
+                            text: 'Pie chart show the percentage of module that are searched',
+                            align: 'left'
+                        },
+                        tooltip: {
+                            pointFormat: '{series.name}: <b>{point.y}</b>'
+                        },
+                        accessibility: {
+                            point: {
+                                valueSuffix: '%'
+                            }
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                                }
+                            }
+                        },
+                        series: [{
+                            name: 'search time',
+                            colorByPoint: true,
+                            data: data
+                        }]
+                    });
+                }
+
+            });
+        }
+
+    }
+
+    function searchEachModuleCode() {
+
+    }
 
     function logOut() {
         alert("Thoát đăng nhập")

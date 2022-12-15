@@ -186,3 +186,14 @@ a:visited {
     border: 1px solid black;
     padding-top: 20px;
 }
+
+.search-tab {
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+.no-result-message {
+    margin-top: 20px;
+    margin-left: 50px;
+    color: red;
+}

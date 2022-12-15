@@ -20,6 +20,7 @@ app.use(bodyParser.json())
 app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')))
 app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')))
 app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')))
+app.use('/highcharts', express.static(path.join(__dirname, 'node_modules/highcharts')))
 
 
 app.get('/', (req, res) => {
@@ -301,6 +302,18 @@ app.post('/login', (req, res) => {
 
 app.get('/login', (req, res) => {
     res.render('admin', {});
+})
+
+app.post('/all', (req, res) => {
+    var searchAllQuery = "SELECT maHocPhan as name, count(*) as y FROM searchcount where dateTime >= ? and dateTime <= ? group by maHocPhan";
+    con.query(searchAllQuery, [req.body["startDate"], req.body["endDate"]], function(err, result) {
+        if (err) throw err;
+        if (result.length === 0) {
+            res.send("noresult")
+        } else {
+            res.send(result);
+        }
+    });
 })
 
 
