@@ -65,7 +65,7 @@ $(function() {
     $("#sendCommentBtn").on("click", sendComment)
     $("#logoutBtn").on("click", logOut)
     $("#searchAllBtn").on("click", searchAllModuleCode)
-    $("#searchAllBtn").on("click", searchEachModuleCode)
+    $("#searchEachBtn").on("click", searchEachModuleCode)
 
     function searchAllModuleCode() {
         startDate = $("#startDateAll").val()
@@ -134,7 +134,78 @@ $(function() {
     }
 
     function searchEachModuleCode() {
+        startDate = $("#startDateEach").val()
+        endDate = $("#endDateEach").val()
+        startDay = startDate.substring(8)
+        startMonth = startDate.substring(5, 7)
+        startYear = startDate.substring(0, 4)
+        code = $("#moduleCodeSearch").val()
+        if (startDate > endDate) {
+            alert("Khoảng thời gian không hợp lệ")
+        } else {
+            $.post("http://localhost:70/each", {
+                startDate: startDate,
+                endDate: endDate,
+                code: code
+            }, function(data, status) {
+                let values = data.map(a => a.count);
+                console.log(values)
+                if (data === "noresult") {
+                    $("#noresultEach").show()
+                    if ($("#lineChartContainer").is(":hidden") == false) {
+                        $("#lineChartContainer").hide()
+                    }
+                } else {
+                    if ($("#noresultEach").is(":hidden") == false) {
+                        $("#noresultEach").hide()
+                    }
+                    if ($("#lineChartContainer").is(":hidden")) {
+                        $("#lineChartContainer").show()
+                    }
+                    Highcharts.chart('lineChartContainer', {
 
+                        title: {
+                            text: 'Line chart show the amount of search for ' + code
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Number of visit'
+                            }
+                        },
+
+                        xAxis: {
+                            title: {
+                                text: 'period of time'
+                            },
+                            type: 'datetime'
+                        },
+
+                        legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'middle'
+                        },
+
+                        plotOptions: {
+                            series: {
+                                label: {
+                                    connectorAllowed: false
+                                },
+                                pointInterval: 24 * 3600 * 1000,
+                                pointStart: Date.UTC(startYear, startMonth, startDay)
+                            }
+                        },
+
+                        series: [{
+                            name: 'search time',
+                            data: values
+                        }],
+
+                    });
+                }
+
+            });
+        }
     }
 
     function logOut() {

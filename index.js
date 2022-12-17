@@ -316,6 +316,17 @@ app.post('/all', (req, res) => {
     });
 })
 
+app.post('/each', (req, res) => {
+    var searchEachQuery = 'SELECT   count(*) as count  FROM searchcount  where maHocPhan = ? and dateTime >= ? and dateTime <= ? group by  DAY(dateTime)'
+    con.query(searchEachQuery, [req.body["code"], req.body["startDate"], req.body["endDate"]], function(err, result) {
+        if (err) throw err;
+        if (result.length === 0) {
+            res.send("noresult")
+        } else {
+            res.send(result);
+        }
+    });
+})
 
 
 // port where app is served

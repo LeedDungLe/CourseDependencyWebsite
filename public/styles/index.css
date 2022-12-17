@@ -190,6 +190,7 @@ a:visited {
 .search-tab {
     margin-top: 20px;
     margin-left: 30px;
+    margin-bottom: 10px;
 }
 
 .no-result-message {
