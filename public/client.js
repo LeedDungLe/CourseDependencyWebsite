@@ -181,9 +181,6 @@ $(function() {
     function searchEachModuleCode() {
         startDate = $("#startDateEach").val()
         endDate = $("#endDateEach").val()
-        startDay = startDate.substring(8)
-        startMonth = startDate.substring(5, 7)
-        startYear = startDate.substring(0, 4)
         code = $("#moduleCodeSearch").val()
         if (startDate > endDate) {
             alert("Khoảng thời gian không hợp lệ")
@@ -239,7 +236,8 @@ $(function() {
                                 label: {
                                     connectorAllowed: false
                                 },
-                                pointStart: Date.UTC(startYear, startMonth, startDay)
+                                pointStart: convertStrToDate(startDate).getTime()
+
                             }
                         },
 
