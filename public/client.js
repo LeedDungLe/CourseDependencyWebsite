@@ -78,7 +78,6 @@ $(function() {
                 startDate: startDate,
                 endDate: endDate
             }, function(data, status) {
-                console.log(data)
                 if (data === "noresult") {
                     $("#noresultAll").show()
                     if ($("#pieChartContainer").is(":hidden") == false) {
@@ -133,6 +132,52 @@ $(function() {
 
     }
 
+    function convertStrToDate(stringVar) {
+        var parts = stringVar.split('-');
+        var thisDate = new Date(parts[0], parts[1] - 1, parts[2]);
+        return thisDate
+    }
+
+    function dateCalc(startDate, endDate, data) {
+
+        dataDateObj = data
+        result = []
+        dateArr = []
+        for (var i = 0; i < dataDateObj.length; i++) {
+            dataDateObj[i].date = convertStrToDate(dataDateObj[i].date)
+            dateArr.push(dataDateObj[i].date)
+        }
+
+        var loop = new Date(startDate);
+        while (loop <= endDate) {
+            if (isInArray(dateArr, loop)) {
+                for (var i = 0; i < dataDateObj.length; i++) {
+                    if (dataDateObj[i].date.getTime() == loop.getTime()) {
+                        temp = [];
+                        dateUtc = loop.getTime()
+                        temp.push(dateUtc)
+                        temp.push(dataDateObj[i].count)
+                        result.push(temp)
+                    }
+                }
+            } else {
+                temp = [];
+                dateUtc = loop.getTime()
+                temp.push(dateUtc)
+                temp.push(0)
+                result.push(temp)
+            }
+            var newDate = loop.setDate(loop.getDate() + 1);
+            loop = new Date(newDate);
+        }
+
+        return result
+    }
+
+    function isInArray(array, value) {
+        return !!array.find(item => { return item.getTime() == value.getTime() });
+    }
+
     function searchEachModuleCode() {
         startDate = $("#startDateEach").val()
         endDate = $("#endDateEach").val()
@@ -148,8 +193,7 @@ $(function() {
                 endDate: endDate,
                 code: code
             }, function(data, status) {
-                let values = data.map(a => a.count);
-                console.log(values)
+
                 if (data === "noresult") {
                     $("#noresultEach").show()
                     if ($("#lineChartContainer").is(":hidden") == false) {
@@ -162,14 +206,14 @@ $(function() {
                     if ($("#lineChartContainer").is(":hidden")) {
                         $("#lineChartContainer").show()
                     }
+                    values = dateCalc(convertStrToDate(startDate), convertStrToDate(endDate), data)
                     Highcharts.chart('lineChartContainer', {
-
                         title: {
                             text: 'Line chart show the amount of search for ' + code
                         },
                         yAxis: {
                             title: {
-                                text: 'Number of visit'
+                                text: 'Number of search'
                             }
                         },
 
@@ -177,7 +221,11 @@ $(function() {
                             title: {
                                 text: 'period of time'
                             },
-                            type: 'datetime'
+                            type: 'datetime',
+                            dateTimeLabelFormats: { // don't display the year
+                                month: '%e. %b',
+                                year: '%b'
+                            },
                         },
 
                         legend: {
@@ -191,7 +239,6 @@ $(function() {
                                 label: {
                                     connectorAllowed: false
                                 },
-                                pointInterval: 24 * 3600 * 1000,
                                 pointStart: Date.UTC(startYear, startMonth, startDay)
                             }
                         },
@@ -256,8 +303,6 @@ $(function() {
             if (myName.trim() == "") {
                 myName = "anonymous"
             }
-            console.log(content)
-            console.log(myName)
 
             $.post("http://localhost:70/comment", {
                 code: moduleCode,
