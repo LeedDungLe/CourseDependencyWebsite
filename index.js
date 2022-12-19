@@ -317,13 +317,13 @@ app.post('/all', (req, res) => {
 })
 
 app.post('/each', (req, res) => {
-    var searchEachQuery = 'SELECT substring(dateTime,1,10) as date ,  count(*) as count  FROM searchcount  where maHocPhan = ? and dateTime >= ? and dateTime <= ? group by  DAY(dateTime)'
+    var searchEachQuery = 'SET sql_mode = \'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION\'; SELECT substring(dateTime,1,10) as date ,  count(*) as count  FROM searchcount  where maHocPhan = ? and dateTime >= ? and dateTime <= ? group by  DAY(dateTime)'
     con.query(searchEachQuery, [req.body["code"], req.body["startDate"], req.body["endDate"]], function(err, result) {
         if (err) throw err;
         if (result.length === 0) {
             res.send("noresult")
         } else {
-            res.send(result);
+            res.send(result[1]);
 
 
         }

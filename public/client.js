@@ -144,7 +144,8 @@ $(function() {
         result = []
         dateArr = []
         for (var i = 0; i < dataDateObj.length; i++) {
-            dataDateObj[i].date = convertStrToDate(dataDateObj[i].date)
+            currentDate = dataDateObj[i].date
+            dataDateObj[i].date = convertStrToDate(currentDate)
             dateArr.push(dataDateObj[i].date)
         }
 
