@@ -79,7 +79,7 @@ app.post('/', (req, res) => {
                     // Với trường hợp có yêu cầu các học phần điều kiện
                     else {
                         var spawn = require('child_process').spawn;
-                        var process2 = spawn('python', [
+                        var process2 = spawn('python3', [
                             './calc.py', moduleCode
                         ]);
                         process2.stdout.on('data', function(data1) {
@@ -88,7 +88,7 @@ app.post('/', (req, res) => {
                             if (data1 == "stop") {
                                 hasSubImage = false
                             }
-                            var process = spawn('python', [
+                            var process = spawn('python3', [
                                 './script.py', result[0].hocPhanDieuKien
                             ]);
                             process.stdout.on('data', function(data) {
