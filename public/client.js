@@ -74,7 +74,7 @@ $(function() {
         if (startDate > endDate) {
             alert("Khoảng thời gian không hợp lệ")
         } else {
-            $.post("http://localhost:70/all", {
+            $.post("http://sinno.soict.ai:37070/all", {
                 startDate: startDate,
                 endDate: endDate
             }, function(data, status) {
@@ -186,7 +186,7 @@ $(function() {
         if (startDate > endDate) {
             alert("Khoảng thời gian không hợp lệ")
         } else {
-            $.post("http://localhost:70/each", {
+            $.post("http://sinno.soict.ai:37070/each", {
                 startDate: startDate,
                 endDate: endDate,
                 code: code
@@ -256,7 +256,7 @@ $(function() {
 
     function logOut() {
         alert("Thoát đăng nhập")
-        window.location = "http://localhost:70";
+        window.location = "http://sinno.soict.ai:37070/";
     }
 
     function clickLoginBtn() {
@@ -274,7 +274,7 @@ $(function() {
     function checkLoginInfo() {
         username = $("#username").val()
         password = $("#password").val()
-        $.post("http://localhost:70/login", {
+        $.post("http://sinno.soict.ai:37070/login", {
             username: username,
             password: password,
         }, function(data, status) {
@@ -285,7 +285,7 @@ $(function() {
                 $("#password").val("")
             } else {
                 alert("đăng nhập thành công")
-                window.location = "http://localhost:70/login";
+                window.location = "http://sinno.soict.ai:37070/login";
             }
         });
     }
@@ -303,7 +303,7 @@ $(function() {
                 myName = "anonymous"
             }
 
-            $.post("http://localhost:70/comment", {
+            $.post("http://sinno.soict.ai:37070/comment", {
                 code: moduleCode,
                 userName: myName,
                 content: content
