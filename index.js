@@ -145,7 +145,13 @@ app.post('/', (req, res) => {
                                     });
                                 }
                             });
-                        })
+                            process.stderr.on('data', (data) => {
+                                console.error(`stderr: ${data}`);
+                            });
+                        });
+                        process2.stderr.on('data', (data) => {
+                            console.error(`stderr: ${data}`);
+                        });
                     }
 
 
@@ -269,7 +275,13 @@ app.get('/code', (req, res) => {
                                     });
                                 }
                             });
-                        })
+                            process.stderr.on('data', (data) => {
+                                console.error(`stderr: ${data}`);
+                            });
+                        });
+                        process2.stderr.on('data', (data) => {
+                            console.error(`stderr: ${data}`);
+                        });
                     }
 
 
