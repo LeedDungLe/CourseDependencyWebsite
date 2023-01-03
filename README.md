@@ -1,6 +1,6 @@
 cài đặt thư viện
 graphiz:
-    pip install graphiz
+    pip install graphviz
 sympy:
     pip install sympy
 
