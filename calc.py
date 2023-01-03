@@ -148,11 +148,26 @@ else:
                             node_attr={'shape': 'record',}, 
                             edge_attr={'len': '2.0'}
                             )
-    dot.attr('node', shape='house', color='red:orange', style='filled', gradientangle='270', fontcolor='white')
     listHP = cheapestLst["listHP"].copy()
+    dot.attr('node', shape='record', color='#ff000042', style='filled', fontcolor='black', fontsize="14", fontname="Tahoma")
+    rootObj = getInfoModule(mainModuleCode)
+    rootFee = cheapestLst["minVal"] + rootObj["FeeVal"]
+    rootStringLablel = "Tổng học phí thấp nhất: "+ str(rootFee)
+    dot.node(mainModuleCode, label= "{" + "{mainModuleCode} | {Fee} |{minFee}".format(
+        mainModuleCode =mainModuleCode,
+        Fee = "Học phí: "+ str(rootObj["FeeVal"]),
+        minFee = rootStringLablel
+        ) + "}",)
 
     for item in listHP:
         for i in item["lineTree"]:
+            itemObj = getInfoModule(i)
+            fee = itemObj["FeeVal"]
+            stringLablel = "Học phí: "+ str(fee)
+            dot.node(i, label= "{" + "{mainModuleCode} | {minFee}".format(
+            mainModuleCode =i,
+            minFee = stringLablel
+            ) + "}",)
             dot.edge(item["parent"],i)
             
     dot.render(COURSE_COLLECTION_FOLDER + "/public/pic/" + mainModuleCode, view=False,cleanup=True,format='png')
