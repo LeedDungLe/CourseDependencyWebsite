@@ -318,7 +318,7 @@ app.get('/login', (req, res) => {
 
 app.post('/all', (req, res) => {
     var searchAllQuery = "SELECT maHocPhan as name, count(*) as y FROM searchcount where dateTime >= ? and dateTime <= ? group by maHocPhan";
-    con.query(searchAllQuery, [req.body["startDate"], req.body["endDate"]], function(err, result) {
+    con.query(searchAllQuery, [req.body["startDate"] + " 00:00:00", req.body["endDate"] + " 23:59:59"], function(err, result) {
         if (err) throw err;
         if (result.length === 0) {
             res.send("noresult")
@@ -330,7 +330,7 @@ app.post('/all', (req, res) => {
 
 app.post('/each', (req, res) => {
     var searchEachQuery = 'SET sql_mode = \'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION\'; SELECT substring(dateTime,1,10) as date ,  count(*) as count  FROM searchcount  where maHocPhan = ? and dateTime >= ? and dateTime <= ? group by  DAY(dateTime)'
-    con.query(searchEachQuery, [req.body["code"], req.body["startDate"], req.body["endDate"]], function(err, result) {
+    con.query(searchEachQuery, [req.body["code"], req.body["startDate"] + " 00:00:00", req.body["endDate"] + " 23:59:59"], function(err, result) {
         if (err) throw err;
         if (result.length === 0) {
             res.send("noresult")

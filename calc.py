@@ -1,12 +1,42 @@
 import math
 import os
 import graphviz
-from var import *
+import pandas as pd
+# from var import *
 from sympy.logic.boolalg import to_dnf
 from os.path import exists
 
 import sys
 
+def syntaxStandardized (preModule):
+    preModule = preModule.replace("*", "").replace("=", "_").replace(" ", "").replace("!", "__")
+    result = preModule.replace(",","&").replace("/","|")
+    return result
+
+
+#Load dữ liệu học phần
+courses = pd.read_csv('CourseListdata1.csv')
+
+standardizedCourses = [];
+for index, row in courses.iterrows():
+    dk=str(row['ConditionalModule']);
+    if row['TCTuitionFees'] == ' ' :
+        FeeVal = 0
+    else:
+        FeeVal = float(row['TCTuitionFees'])
+    dependency = dk.replace("*", "").replace("=", "").replace(" ", "").replace("!", "")
+    if dependency.strip() == "":
+        dependency = ""
+    else:
+        dependency = syntaxStandardized(dependency)
+    myCourse={
+              'HP':row['ModuleCode'], 
+              "Dep":dependency,
+              "FeeVal": FeeVal,
+              "MinFeeSum": 999,
+              "ListMinFeeHP": []
+              }
+    standardizedCourses.append(myCourse)
 
 
 # lay thong tin cua mon hoc
